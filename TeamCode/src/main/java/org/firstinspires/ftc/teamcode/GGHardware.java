@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import android.view.View;
 import java.util.Locale;
 import android.graphics.Color;
@@ -37,6 +38,7 @@ public class GGHardware
 
     /* Local OP Mode Members*/
     HardwareMap hwMap  = null;
+    public LinearOpMode BaseOpMode = null;
     private ElapsedTime runtime = new ElapsedTime();
 
     public final double BOTTOMRCLAW_CLOSE = 0.0;
@@ -81,20 +83,61 @@ public class GGHardware
     {
         _parameters = parameters;
         hwMap =  parameters.BaseOpMode.hardwareMap;/*ahwMap*/
+        BaseOpMode = parameters.BaseOpMode;
+
         frontleft = hwMap.get(DcMotor.class, "fleft");
+        BaseOpMode.telemetry.addData("fleft", 0);
+        BaseOpMode.telemetry.update();
+
         frontright = hwMap.get(DcMotor.class, "fright");
+        BaseOpMode.telemetry.addData("fright", 0);
+        BaseOpMode.telemetry.update();
+
         backleft = hwMap.get(DcMotor.class, "bleft");
+        BaseOpMode.telemetry.addData("bleft", 0);
+        BaseOpMode.telemetry.update();
+
         backright = hwMap.get(DcMotor.class, "bright");
+        BaseOpMode.telemetry.addData("bright", 0);
+        BaseOpMode.telemetry.update();
+
         lift1 = hwMap.get(DcMotor.class, "lift1");
+        BaseOpMode.telemetry.addData("lift1t", 0);
+        BaseOpMode.telemetry.update();
+
         LClaw1 = hwMap.get(Servo.class, "lclaw1");
+        BaseOpMode.telemetry.addData("lclaw1", 0);
+        BaseOpMode.telemetry.update();
+
         LClaw2 = hwMap.get(Servo.class, "lclaw2");
+        BaseOpMode.telemetry.addData("lclaw2", 0);
+        BaseOpMode.telemetry.update();
+
         RClaw1 = hwMap.get(Servo.class, "rclaw1");
+        BaseOpMode.telemetry.addData("rclaw1", 0);
+        BaseOpMode.telemetry.update();
+
         RClaw2 = hwMap.get(Servo.class, "rclaw2");
+        BaseOpMode.telemetry.addData("rclaw2", 0);
+        BaseOpMode.telemetry.update();
+
         relicClaw = hwMap.get(Servo.class, "relicClaw");
+        BaseOpMode.telemetry.addData("relicClaw", 0);
+        BaseOpMode.telemetry.update();
+
         relicUpDown = hwMap.get(Servo.class, "relicUpDown");
+        BaseOpMode.telemetry.addData("relicUpDown", 0);
+        BaseOpMode.telemetry.update();
+
         relicLift = hwMap.get(DcMotor.class, "relicLift");
+        BaseOpMode.telemetry.addData("relicLift", 0);
+        BaseOpMode.telemetry.update();
+
         pivot = hwMap.get(Servo.class, "pivot");
-       // spin = hwMap.get(Servo.class, "spin");
+        BaseOpMode.telemetry.addData("pivot", 0);
+        BaseOpMode.telemetry.update();
+
+        // spin = hwMap.get(Servo.class, "spin");
 
 
 
@@ -109,7 +152,7 @@ public class GGHardware
         backleft.setDirection(DcMotor.Direction.REVERSE);
     }
 
-    boolean reachedPosition = false;
+
 
 
 
@@ -156,31 +199,7 @@ public class GGHardware
     }
 
 
-    public void runEncodersUntil(int encoderAmount)
-    {
-        reachedPosition = false;
 
-        while(!reachedPosition)
-        {
-            if(Math.abs(backleft.getCurrentPosition()) > encoderAmount)
-            {
-                reachedPosition = true;
-            }
-        }
-    }
-
-    public void resetEncoders()
-    {
-        backleft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    }
-
-    public void runWithEncoders()
-    {
-        if(backleft != null)
-        {
-            backleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
-    }
 
     public void getJoyVals() {
         float pwrFactor = (float)1;
@@ -203,17 +222,27 @@ public class GGHardware
         // Ensure that the opmode is still active
         if (_parameters.BaseOpMode.opModeIsActive())
         {
+            //Set Target Position
             backleft.setTargetPosition(targetCount);
-
+            //Reset Encoders
             backleft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            //backleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-            // Turn On RUN_TO_POSITION
-            backleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            // reset the timeout time and start motion.
+            // Turn On Run Without Encoders
+            backleft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            // reset the timeout time and start motion.WITHOUT
             runtime.reset();
-            forwBakw(Math.abs(speed));
+            if(direction == 0)
+            {
+                forwBakw(Math.abs(speed));
+            }
+            else if(direction == 1)
+            {
+                forwBakw(Math.abs(-speed));
+            }
+            else if(direction == 2)
+            {
+                turnLeft();
+            }
+
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -227,23 +256,27 @@ public class GGHardware
                     )
             {
                 // Display it for the driver.
-                _parameters.BaseOpMode.telemetry.addData("Path1",  "Running to %7d :%7d",
-                        targetCount,  backleft.getCurrentPosition());
+                _parameters.BaseOpMode.telemetry.addData("Path1",  "Running to %7d :%7d", targetCount,  backleft.getCurrentPosition());
                 _parameters.BaseOpMode.telemetry.update();
             }
 
             // Stop all motion;
             forwBakw(0);
-
+            //Reset Encoders
             backleft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-            // Turn off RUN_TO_POSITION
-            //backleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            //Set to Run Without Encoders
             backleft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
     }
 
+    public void resetEncoders()
+    {
+        backleft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
 
-
+    public void runWithOutEncoders()
+    {
+        backleft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
 
 }

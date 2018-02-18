@@ -24,15 +24,17 @@ public class MechDrive extends LinearOpMode
     @Override
     public void runOpMode()
     {
-        resetEncoders();
+
+
         GGParameters parameters = new GGParameters(this);
         robot.init(parameters);
+        robot.resetEncoders();
         waitForStart();
 
         while (opModeIsActive())
         {
 
-            runWithOutEncoders();
+            robot.runWithOutEncoders();
             int position = robot.backleft.getCurrentPosition();
             telemetry.addData("Encoder Position", position);
             telemetry.update();
@@ -148,16 +150,5 @@ public class MechDrive extends LinearOpMode
         }
     }
 
-    public void resetEncoders()
-    {
-        robot.backleft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    }
 
-    public void runWithOutEncoders()
-    {
-        if(robot.backleft != null)
-        {
-            robot.backleft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        }
-    }
 }
