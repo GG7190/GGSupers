@@ -234,14 +234,6 @@ public class GGHardware
             {
                 forwBakw(Math.abs(speed));
             }
-            else if(direction == 1)
-            {
-                forwBakw(Math.abs(-speed));
-            }
-            else if(direction == 2)
-            {
-                turnLeft();
-            }
 
 
             // keep looping while we are still active, and there is time left, and both motors are running.
@@ -250,9 +242,9 @@ public class GGHardware
             // always end the motion as soon as possible.
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
-            while (_parameters.BaseOpMode.opModeIsActive() &&
+            while (//_parameters.BaseOpMode.opModeIsActive() &&
                     (runtime.seconds() < timeoutSeconds) &&
-                    (backleft.isBusy())
+                            (backleft.getCurrentPosition() < targetCount)
                     )
             {
                 // Display it for the driver.
