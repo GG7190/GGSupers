@@ -34,7 +34,10 @@ public class MechDrive extends LinearOpMode
         while (opModeIsActive())
         {
 
-            robot.runWithOutEncoders();
+            robot.backleft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.frontleft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.backright.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.frontright.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             int position = robot.backleft.getCurrentPosition();
             telemetry.addData("Encoder Position", position);
             telemetry.update();

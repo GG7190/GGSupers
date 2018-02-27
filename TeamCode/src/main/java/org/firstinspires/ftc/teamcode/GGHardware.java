@@ -217,13 +217,27 @@ public class GGHardware
         //checks deadzones
     }
 
-    public void DriveMotorUsingEncoder(double speed, int targetCount, double timeoutSeconds, int direction)
+    final int PPR = 1062;
+    final int wheelDiameter = 4;
+
+    public int getEncoderPulses(int inches)
+    {
+       int ppi = (int) (PPR / (wheelDiameter * Math.PI));
+       ppi = (ppi * inches);
+        return ppi;
+    }
+
+
+    public void DriveMotorUsingEncoder(double speed, int targetDistance, double timeoutSeconds, int direction)
     {
         // Ensure that the opmode is still active
         if (_parameters.BaseOpMode.opModeIsActive())
         {
+            _parameters.BaseOpMode.telemetry.addData("Im Running", backleft.getCurrentPosition());
+            _parameters.BaseOpMode.telemetry.update();
+
             //Set Target Position
-            backleft.setTargetPosition(targetCount);
+            targetDistance = getEncoderPulses(targetDistance);
             //Reset Encoders
             backleft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             // Turn On Run Without Encoders
@@ -232,7 +246,23 @@ public class GGHardware
             runtime.reset();
             if(direction == 0)
             {
-                forwBakw(Math.abs(speed));
+                forwBakw(speed);
+            }
+            else if(direction == 1)
+            {
+                forwBakw(-speed);
+            }
+            else if(direction == 2)
+            {
+                turnRight();
+            }
+            else if (direction == 3)
+            {
+                turnLeft();
+            }
+            else
+            {
+                forwBakw(0);
             }
 
 
@@ -244,11 +274,11 @@ public class GGHardware
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (//_parameters.BaseOpMode.opModeIsActive() &&
                     (runtime.seconds() < timeoutSeconds) &&
-                            (backleft.getCurrentPosition() < targetCount)
+                            (Math.abs(backleft.getCurrentPosition()) < targetDistance)
                     )
             {
                 // Display it for the driver.
-                _parameters.BaseOpMode.telemetry.addData("Path1",  "Running to %7d :%7d", targetCount,  backleft.getCurrentPosition());
+                _parameters.BaseOpMode.telemetry.addData("Path1",  "Running to %7d :%7d", targetDistance,  backleft.getCurrentPosition());
                 _parameters.BaseOpMode.telemetry.update();
             }
 
@@ -266,9 +296,5 @@ public class GGHardware
         backleft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
-    public void runWithOutEncoders()
-    {
-        backleft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    }
 
 }

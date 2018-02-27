@@ -1,43 +1,43 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
-        import android.app.Activity;
-        import android.graphics.Color;
-        import android.view.View;
+import android.app.Activity;
+import android.graphics.Color;
+import android.view.View;
 
-        import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-        import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-        import com.qualcomm.robotcore.hardware.ColorSensor;
-        import com.qualcomm.robotcore.hardware.DcMotor;
-        import com.qualcomm.robotcore.hardware.DistanceSensor;
-        import com.qualcomm.robotcore.hardware.HardwareMap;
-        import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
-        import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-        import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
-        import org.firstinspires.ftc.robotcore.external.ClassFactory;
-        import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-        import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
-        import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-        import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-        import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-        import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-        import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
-        import org.firstinspires.ftc.robotcore.external.navigation.VuMarkInstanceId;
-        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
-        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
-        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
-        import org.firstinspires.ftc.teamcode.GGHardware;
-        import org.firstinspires.ftc.teamcode.GGParameters;
-        import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-        import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-        import org.firstinspires.ftc.teamcode.GGHardware;
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuMarkInstanceId;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.teamcode.GGHardware;
+import org.firstinspires.ftc.teamcode.GGParameters;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.teamcode.GGHardware;
 
-        import java.util.Locale;
+import java.util.Locale;
 
-        import org.firstinspires.ftc.teamcode.GGParameters;
+import org.firstinspires.ftc.teamcode.GGParameters;
 
 /*
  * This is an example LinearOpMode that shows how to use
@@ -52,7 +52,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 public class VuJewelRed extends LinearOpMode {
 
-    GGHardware robot  = new GGHardware();
+    GGHardware robot = new GGHardware();
 
     ColorSensor sensorColor;
     DistanceSensor sensorDistance;
@@ -63,7 +63,6 @@ public class VuJewelRed extends LinearOpMode {
     public void runOpMode() {
         GGParameters ggparameters = new GGParameters(this);
         robot.init(ggparameters);
-
 
 
         /**
@@ -78,9 +77,6 @@ public class VuJewelRed extends LinearOpMode {
         telemetry.update();
 
         waitForStart();
-        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
-        VuforiaTrackable relicTemplate = relicTrackables.get(0);
-        relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
@@ -91,8 +87,17 @@ public class VuJewelRed extends LinearOpMode {
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
         this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
 
+        telemetry.addData(">", "I'm Here");
+        telemetry.update();
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+        relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
+        telemetry.addData(">", "passed Trackables");
+        telemetry.update();
+
+
         waitForStart();
-        relicTrackables.activate();
+        //relicTrackables.activate();
         telemetry.addData("Before while statement", "?");
         telemetry.update();
 
@@ -151,78 +156,52 @@ public class VuJewelRed extends LinearOpMode {
 
             telemetry.update();
 
-            robot.pivot.setPosition(robot.PIVOT_MAX_RANGE);
+            //robot.pivot.setPosition(robot.PIVOT_MAX_RANGE);
 
             //Wait for the sensor to move down into place.
             sleep(2000);
 
 
-            if(sensorColor.red() > ballCheck())
-            {
+            if (sensorColor.red() > ballCheck()) {
                 //sense color and knock off
-                robot.RClaw1.setPosition(robot.BOTTOMRCLAW_CLOSE);
-                robot.LClaw1.setPosition(robot.BOTTOMLCLAW_CLOSE);
-                sleep(700);
-                robot.lift1.setPower(.75);
-                sleep(50);
-                robot.lift1.setPower(0);
-                sleep(50);
-                robot.forwBakw(.75);
-                sleep(100);
-                robot.forwBakw(0);
-                sleep(300);
-                robot.pivot.setPosition(robot.PIVOT_MIN_RANGE);
-                sleep(100);
-                //drive to see pictograph
-                forwBackw(-.25);
-                sleep(250);
-                RelicRecoveryVuMark vuMark = searchVuMark(relicTemplate);
-                if(vuMark != RelicRecoveryVuMark.UNKNOWN)
-                {
-
-                    if (vuMark == RelicRecoveryVuMark.RIGHT)
-                    {
-                        red(right);
-                    }
-
-                    if (vuMark == RelicRecoveryVuMark.CENTER)
-                    {
-                        red(center);
-                    }
-
-                    if (vuMark == RelicRecoveryVuMark.LEFT)
-                    {
-                        red(left);
-                    }
-                }
-
-                else
-                {
-                    stop();
-                }
-
-
+                //
+                //////come back and add servo movement!!!///////
+                //
+            } else {
+                //sense color and knock off
+                //
+                //////come back and add servo movement!!!///////
+                //
             }
-            else
-            {
-                robot.RClaw1.setPosition(robot.BOTTOMRCLAW_CLOSE);
-                robot.LClaw1.setPosition(robot.BOTTOMLCLAW_CLOSE);
-                sleep(700);
-                robot.lift1.setPower(.75);
-                sleep(50);
-                robot.lift1.setPower(0);
-                sleep(50);
-                robot.forwBakw(-1);
-                sleep(50);
-                robot.forwBakw(0);
-                sleep(200);
-                robot.pivot.setPosition(robot.PIVOT_MIN_RANGE);
-                sleep(100);
-                //blue(right);
-                RelicRecoveryVuMark vuMark = searchVuMark(relicTemplate);
+            robot.RClaw1.setPosition(robot.BOTTOMRCLAW_CLOSE);
+            robot.LClaw1.setPosition(robot.BOTTOMLCLAW_CLOSE);
+            sleep(700);
+            robot.lift1.setPower(.75);
+            sleep(50);
+            robot.lift1.setPower(0);
+
+
+            RelicRecoveryVuMark vuMark = searchVuMark(relicTemplate);
+
+            if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
+                if (vuMark == RelicRecoveryVuMark.RIGHT) {
+                    red(right);
+                }
+
+                if (vuMark == RelicRecoveryVuMark.CENTER) {
+                    red(center);
+                }
+
+                if (vuMark == RelicRecoveryVuMark.LEFT) {
+                    red(left);
+                }
+            } else {
+                stop();
+            }
+        }
+/*                RelicRecoveryVuMark vuMark = searchVuMark(relicTemplate);
                 if(vuMark != RelicRecoveryVuMark.UNKNOWN)
                 {
-
                     if (vuMark == RelicRecoveryVuMark.RIGHT)
                     {
                         blue(right);
@@ -239,8 +218,8 @@ public class VuJewelRed extends LinearOpMode {
                     }
                 }
 
-            }
-        }
+
+         */
 
         // Set the panel back to the default color
         relativeLayout.post(new Runnable() {
@@ -249,6 +228,8 @@ public class VuJewelRed extends LinearOpMode {
             }
         });
     }
+
+
     boolean reachedPosition = false;
 
 
@@ -319,27 +300,19 @@ public class VuJewelRed extends LinearOpMode {
 
     public void red(int turn)
     {
-        robot.forwBakw(-.50);
-        sleep(1300);
-        robot.forwBakw(0);
+        robot.DriveMotorUsingEncoder(0.5, 20, 10, 1);
         sleep(200);
-        robot.turnLeft();
-        sleep(turn);
-        robot.forwBakw(-.75);
+
+        robot.DriveMotorUsingEncoder(1,28,10,3);
         sleep(200);
-        robot.lift1.setPower(-.75);
-        sleep(50);
-        robot.lift1.setPower(0);
-        sleep(50);
-        robot.forwBakw(-1);
-        sleep(200);
-        robot.forwBakw(0);
-        sleep(50);
+
+       robot.DriveMotorUsingEncoder(0.5,14,10,0);
+       sleep(200);
+
         robot.RClaw1.setPosition(robot.BOTTOMRCLAW_OPEN);
         robot.LClaw1.setPosition(robot.BOTTOMLCLAW_OPEN);
-        robot.forwBakw(1);
-        sleep(80);
-        robot.forwBakw(0);
+
+        robot.DriveMotorUsingEncoder(0.5,3,10, 1);
         stop();
     }
 
@@ -362,5 +335,3 @@ public class VuJewelRed extends LinearOpMode {
         return result;
     }
 }
-
-

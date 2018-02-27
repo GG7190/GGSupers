@@ -37,8 +37,10 @@ public class EncoderTest extends LinearOpMode
                 //grab onto block
                 robot.RClaw1.setPosition(robot.BOTTOMRCLAW_CLOSE);
                 robot.LClaw1.setPosition(robot.BOTTOMLCLAW_CLOSE);
+
+                int distance = 24;
                 //Drive off platform
-                robot.DriveMotorUsingEncoder(1,500,30, forward);
+                robot.DriveMotorUsingEncoder(0.25,24,30, forward);
                 stop();
                 finished = true;
 
