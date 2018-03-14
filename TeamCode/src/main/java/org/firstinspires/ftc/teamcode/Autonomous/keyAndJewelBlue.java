@@ -148,19 +148,24 @@ public class keyAndJewelBlue  extends LinearOpMode {
         //Wait for the sensor to move down into place.
         sleep(2000);
 
-
+        //Sense color
         if(color.red() > ballCheck(color))
         {
+            //Close Claws
             robot.RClaw1.setPosition(robot.BOTTOMRCLAW_CLOSE);
             robot.LClaw1.setPosition(robot.BOTTOMLCLAW_CLOSE);
             sleep(700);
+            //lift slightly so block doesn't hit the ground
             robot.lift1.setPower(.75);
             sleep(150);
+            // stop lift
             robot.lift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             robot.lift1.setPower(0);
             sleep(50);
+            //drive to safe zone
             robot.forwBakw(-.75);
             sleep(40);
+            //stop driving
             robot.forwBakw(0);
             sleep(300);
             robot.pivot.setPosition(robot.PIVOT_MIN_RANGE);
@@ -169,18 +174,22 @@ public class keyAndJewelBlue  extends LinearOpMode {
 
         else
         {
+            //open claws
             robot.RClaw1.setPosition(robot.BOTTOMRCLAW_CLOSE);
             robot.LClaw1.setPosition(robot.BOTTOMLCLAW_CLOSE);
             sleep(700);
+            //lift up
             robot.lift1.setPower(.75);
             sleep(150);
             robot.lift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             robot.lift1.setPower(0);
             sleep(50);
+            //drive to knock off ball
             robot.forwBakw(1);
             sleep(50);
             robot.forwBakw(0);
             sleep(200);
+            //move arm up
             robot.pivot.setPosition(robot.PIVOT_MIN_RANGE);
             sleep(100);
             forwBackw(-0.75);

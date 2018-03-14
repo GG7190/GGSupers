@@ -47,10 +47,10 @@ public class GGHardware
     public final double TOPRCLAW_OPEN = 0.7;
     public final double BOTTOMLCLAW_OPEN = 0.25;
     public static double BOTTOMLCLAW_CLOSE = 0.95;
-    public static double TOPLCLAW_CLOSE = 0.90;
+    public static double TOPLCLAW_CLOSE = 1;
     public static double TOPLCLAW_OPEN = 0.3;
-    public static double LEFT_CLAW_MID = 0.85;
-    public static double RIGHT_CLAW_MID = 0.35;
+    public static double LEFT_CLAW_MID = 0.90;
+    public static double RIGHT_CLAW_MID = 0.20;
     public static double BOTTOM_LEFT_MID = 0.70;
     public final double PIVOT_MIN_RANGE = 0.15;
     public final double PIVOT_MID_RANGE = 0.30;
@@ -61,12 +61,12 @@ public class GGHardware
     public final double RELICCLAW_MIN_RANGE = 0.01;
     public final double RELICCLAW_MID_RANGE = 0.30;
     public final double RELICCLAW_MAX_RANGE = 0.9;
-    //public final double SPIN_MIN_RANGE = 0.15;
-    //public final double SPIN_MID_RANGE = 0.30;
-    //public final double SPIN_MAX_RANGE = 0.90;
+    public final double SPIN_MIN_RANGE = 0.15;
+    public final double SPIN_MID_RANGE = 0.30;
+    public final double SPIN_MAX_RANGE = 0.90;
 
     public DcMotor frontleft, frontright, backleft, backright ,lift1, relicLift;
-    public Servo pivot, LClaw1, LClaw2, RClaw1, RClaw2, relicClaw, relicUpDown;
+    public Servo pivot, LClaw1, LClaw2, RClaw1, RClaw2, relicClaw, relicUpDown, spin;
     public float x, y, z, w, pwr;
     public static double deadzone = 0.2;
     public static double deadzone2 = 0.1;
@@ -136,8 +136,7 @@ public class GGHardware
         pivot = hwMap.get(Servo.class, "pivot");
         BaseOpMode.telemetry.addData("pivot", 0);
         BaseOpMode.telemetry.update();
-
-        // spin = hwMap.get(Servo.class, "spin");
+        spin = hwMap.get(Servo.class, "spin");
 
 
 
@@ -246,11 +245,11 @@ public class GGHardware
             runtime.reset();
             if(direction == 0)
             {
-                forwBakw(speed);
+                forwBakw(-speed);
             }
             else if(direction == 1)
             {
-                forwBakw(-speed);
+                forwBakw(speed);
             }
             else if(direction == 2)
             {

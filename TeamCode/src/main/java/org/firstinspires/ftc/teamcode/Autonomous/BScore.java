@@ -4,54 +4,30 @@ import android.graphics.Color;
 import android.view.View;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.robotcore.external.navigation.VuMarkInstanceId;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
+
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 import org.firstinspires.ftc.teamcode.GGHardware;
 import org.firstinspires.ftc.teamcode.GGParameters;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.teamcode.GGHardware;
 
 import java.util.Locale;
 
 import org.firstinspires.ftc.teamcode.GGParameters;
 
-/*
- * This is an example LinearOpMode that shows how to use
- * the REV Robotics Color-Distance Sensor.
- *
- * It assumes the sensor is configured with the name "sensor_color_distance".
- *
- * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list.
- */
-@Autonomous(name = "VU jewel Red", group = "Autonomous")
 
-public class VuJewelRed extends LinearOpMode {
+@Autonomous(name = "BScore", group = "Autonomous")
 
+public class BScore extends LinearOpMode {
     GGHardware robot = new GGHardware();
 
     ColorSensor sensorColor;
@@ -156,28 +132,33 @@ public class VuJewelRed extends LinearOpMode {
 
             telemetry.update();
 
-            //robot.pivot.setPosition(robot.PIVOT_MAX_RANGE);
-
+            robot.pivot.setPosition(robot.PIVOT_MIN_RANGE);
+            robot.spin.setPosition(.40);
             //Wait for the sensor to move down into place.
             sleep(2000);
 
 
-            if (sensorColor.red() > ballCheck()) {
-                //sense color and knock off
-                //
-                //////come back and add servo movement!!!///////
-                //
-            } else {
-                //sense color and knock off
-                //
-                //////come back and add servo movement!!!///////
-                //
+            if (sensorColor.red() < ballCheck()) {
+                robot.spin.setPosition(80);
+                sleep(2000);
+                robot.spin.setPosition(.40);
+                robot.pivot.setPosition(robot.PIVOT_MAX_RANGE);
+
             }
+            else
+            {
+                //sense color and knock off
+                robot.spin.setPosition(robot.SPIN_MID_RANGE);
+                robot.pivot.setPosition(robot.PIVOT_MAX_RANGE);
+            }
+
+
+
             robot.RClaw1.setPosition(robot.BOTTOMRCLAW_CLOSE);
             robot.LClaw1.setPosition(robot.BOTTOMLCLAW_CLOSE);
             sleep(700);
             robot.lift1.setPower(.75);
-            sleep(50);
+            sleep(250);
             robot.lift1.setPower(0);
 
 
@@ -267,52 +248,31 @@ public class VuJewelRed extends LinearOpMode {
         return y;
     }
 
-    int right = 300;
-    int center = 400;
-    int left = 500;
+    int right = 40;
+    int center = 29;
+    int left = 22;
 
-    public void blue(int turn)
+    public void red(int distance)
     {
-        robot.forwBakw(-1);
-        sleep(600);
-        robot.forwBakw(0);
-        robot.turnLeft();
-        sleep(turn);
-        robot.lift1.setPower(-.75);
-        sleep(50);
-        robot.lift1.setPower(0);
-        sleep(50);
-        robot.forwBakw(-1);
-        sleep(400);
-        robot.forwBakw(0);
-        sleep(50);
-        robot.forwBakw(1);
-        sleep(50);
-        robot.forwBakw(0);
-        sleep(50);
-        robot.RClaw1.setPosition(robot.BOTTOMRCLAW_OPEN);
-        robot.LClaw1.setPosition(robot.BOTTOMLCLAW_OPEN);
-        robot.forwBakw(-1);
-        sleep(80);
-        robot.forwBakw(0);
-        stop();
-    }
-
-    public void red(int turn)
-    {
-        robot.DriveMotorUsingEncoder(0.5, 20, 10, 1);
+        robot.DriveMotorUsingEncoder(0.5, distance, 10, 1);
         sleep(200);
 
-        robot.DriveMotorUsingEncoder(1,28,10,3);
+        robot.DriveMotorUsingEncoder(1,20,10,2);
         sleep(200);
 
-       robot.DriveMotorUsingEncoder(0.5,14,10,0);
-       sleep(200);
+        robot.DriveMotorUsingEncoder(0.5,14,10,0);
+        sleep(200);
 
         robot.RClaw1.setPosition(robot.BOTTOMRCLAW_OPEN);
         robot.LClaw1.setPosition(robot.BOTTOMLCLAW_OPEN);
 
-        robot.DriveMotorUsingEncoder(0.5,3,10, 1);
+        robot.DriveMotorUsingEncoder(0.5,1,10, 1);
+        sleep(200);
+
+        robot.DriveMotorUsingEncoder(0.5,3,10,0);
+        sleep(200);
+
+        robot.DriveMotorUsingEncoder(0.5,2,10,1);
         stop();
     }
 

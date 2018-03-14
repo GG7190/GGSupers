@@ -76,12 +76,20 @@ public class MechDrive extends LinearOpMode
             }
 
             //sets all claws to mid position
-            if(gamepad2.dpad_right)
+            if(gamepad2.dpad_left)
             {
-                robot.RClaw1.setPosition(.25);
+                robot.RClaw1.setPosition(0.13);
                 robot.RClaw2.setPosition(robot.RIGHT_CLAW_MID);
                 robot.LClaw1.setPosition(robot.BOTTOM_LEFT_MID);
                 robot.LClaw2.setPosition(robot.LEFT_CLAW_MID);
+            }
+
+            if(gamepad2.dpad_right)
+            {
+                robot.RClaw1.setPosition(0.20);
+                robot.RClaw2.setPosition(0.25);
+                robot.LClaw1.setPosition(0.6);
+                robot.LClaw2.setPosition(0.8);
             }
 
             //lift up
@@ -129,6 +137,7 @@ public class MechDrive extends LinearOpMode
             {
                 robot.relicUpDown.setPosition(robot.RELICUPDOWN_MAX_RANGE);
             }
+
             //color arm middle
             if(gamepad2.dpad_up)
             {
