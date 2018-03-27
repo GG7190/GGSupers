@@ -143,9 +143,9 @@ public class JewelBlue extends LinearOpMode {
                 robot.RClaw1.setPosition(robot.BOTTOMRCLAW_CLOSE);
                 robot.LClaw1.setPosition(robot.BOTTOMLCLAW_CLOSE);
                 sleep(700);
-                robot.lift1.setPower(.75);
+               // robot.lift1.setPower(.75);
                 sleep(500);
-                robot.lift1.setPower(0);
+               // robot.lift1.setPower(0);
                 sleep(50);
                 robot.forwBakw(.75);
                 sleep(100);
@@ -159,9 +159,9 @@ public class JewelBlue extends LinearOpMode {
                 sleep(200);
                 robot.turnLeft();
                 sleep(800);
-                robot.lift1.setPower(-.75);
+                //robot.lift1.setPower(-.75);
                 sleep(25);
-                robot.lift1.setPower(0);
+                //robot.lift1.setPower(0);
                 sleep(50);
                 robot.forwBakw(-1);
                 sleep(600);
@@ -180,9 +180,9 @@ public class JewelBlue extends LinearOpMode {
                 robot.RClaw1.setPosition(robot.BOTTOMRCLAW_CLOSE);
                 robot.LClaw1.setPosition(robot.BOTTOMLCLAW_CLOSE);
                 sleep(500);
-                robot.lift1.setPower(.75);
+               // robot.lift1.setPower(.75);
                 sleep(500);
-                robot.lift1.setPower(0);
+                //robot.lift1.setPower(0);
                 sleep(50);
                 robot.forwBakw(-1);
                 sleep(50);
@@ -195,9 +195,9 @@ public class JewelBlue extends LinearOpMode {
                 robot.forwBakw(0);
                 robot.turnLeft();
                 sleep(800);
-                robot.lift1.setPower(-.75);
+                //robot.lift1.setPower(-.75);
                 sleep(250);
-                robot.lift1.setPower(0);
+               // robot.lift1.setPower(0);
                 robot.forwBakw(-1);
                 sleep(600);
                 robot.forwBakw(0);

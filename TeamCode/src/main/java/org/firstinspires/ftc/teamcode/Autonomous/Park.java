@@ -34,11 +34,10 @@ public class Park extends LinearOpMode
                 robot.LClaw1.setPosition(robot.BOTTOMLCLAW_CLOSE);
                 sleep(200);
                 //lift the block up
-                robot.lift1.setPower(1);
+                //robot.lift1.setPower(1);
                 sleep(80);
-                robot.lift1.setPower(0);
-                robot.lift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+               // robot.lift1.setPower(0);
+//
                 //drive to the safe area
                 forwBackw(-.75);
                 sleep(1500);

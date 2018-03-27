@@ -157,14 +157,14 @@ public class RDriver extends LinearOpMode {
 
             if (sensorColor.red() > ballCheck()) {
                 //sense color and knock off
-                robot.spin.setPosition(80);
+                robot.spin.setPosition(.80);
                 sleep(2000);
                 robot.spin.setPosition(.40);
 
             } else {
 
                 //sense color and knock off
-                robot.spin.setPosition(robot.SPIN_MID_RANGE);
+                robot.spin.setPosition(0);
 
             }
 
@@ -173,9 +173,9 @@ public class RDriver extends LinearOpMode {
             robot.RClaw1.setPosition(robot.BOTTOMRCLAW_CLOSE);
             robot.LClaw1.setPosition(robot.BOTTOMLCLAW_CLOSE);
             sleep(700);
-            robot.lift1.setPower(.75);
+            //robot.lift1.setPower(.75);
             sleep(250);
-            robot.lift1.setPower(0);
+            //robot.lift1.setPower(0);
 
 
             RelicRecoveryVuMark vuMark = searchVuMark(relicTemplate);
@@ -264,7 +264,7 @@ public class RDriver extends LinearOpMode {
         return y;
     }
 
-    int right = 2;
+    int right = 4;
     int center = 7;
     int left = 10;
 
@@ -275,9 +275,9 @@ public class RDriver extends LinearOpMode {
         robot.forwBakw(0);
         robot.turnLeft();
         sleep(turn);
-        robot.lift1.setPower(-.75);
+        //robot.lift1.setPower(-.75);
         sleep(50);
-        robot.lift1.setPower(0);
+       // robot.lift1.setPower(0);
         sleep(50);
         robot.forwBakw(-1);
         sleep(400);
@@ -315,13 +315,13 @@ public class RDriver extends LinearOpMode {
         robot.RClaw1.setPosition(robot.BOTTOMRCLAW_CLOSE);
         robot.LClaw1.setPosition(robot.BOTTOMLCLAW_CLOSE);
 
-        robot.DriveMotorUsingEncoder(0.5,2,10,2);
+        robot.DriveMotorUsingEncoder(0.5,2,3,2);
         sleep(200);
 
-        robot.DriveMotorUsingEncoder(0.5,3,10,0);
+        robot.DriveMotorUsingEncoder(0.5,3,3,0);
         sleep(200);
 
-        robot.DriveMotorUsingEncoder(0.5,2,10,1);
+        robot.DriveMotorUsingEncoder(0.5,2,3,1);
         stop();
     }
 

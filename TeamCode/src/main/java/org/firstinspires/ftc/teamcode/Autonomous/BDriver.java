@@ -148,30 +148,32 @@ public class BDriver extends LinearOpMode {
 
             telemetry.update();
 
+            //robot.spin.setPosition(0.2);
+
             robot.pivot.setPosition(robot.PIVOT_MIN_RANGE);
 
             //Wait for the sensor to move down into place.
-            sleep(2000);
+            sleep(4000);
 
 
             if (sensorColor.red() > ballCheck()) {
-                robot.spin.setPosition(80);
+                //robot.spin.setPosition(.8);
                 sleep(2000);
-                robot.spin.setPosition(.40);
+                robot.spin.setPosition(0);
 
             } else {
                 //sense color and knock off
-                robot.spin.setPosition(robot.SPIN_MID_RANGE);
+                robot.spin.setPosition(1);
             }
-
+            //robot.spin.setPosition(0.5);
             robot.pivot.setPosition(robot.PIVOT_MAX_RANGE);
 
             robot.RClaw1.setPosition(robot.BOTTOMRCLAW_CLOSE);
             robot.LClaw1.setPosition(robot.BOTTOMLCLAW_CLOSE);
             sleep(700);
-            robot.lift1.setPower(.75);
+            //robot.lift1.setPower(.75);
             sleep(250);
-            robot.lift1.setPower(0);
+            //robot.lift1.setPower(0);
 
 
             RelicRecoveryVuMark vuMark = searchVuMark(relicTemplate);
@@ -271,9 +273,9 @@ public class BDriver extends LinearOpMode {
         robot.forwBakw(0);
         robot.turnLeft();
         sleep(turn);
-        robot.lift1.setPower(-.75);
+       // robot.lift1.setPower(-.75);
         sleep(50);
-        robot.lift1.setPower(0);
+        //robot.lift1.setPower(0);
         sleep(50);
         robot.forwBakw(-1);
         sleep(400);

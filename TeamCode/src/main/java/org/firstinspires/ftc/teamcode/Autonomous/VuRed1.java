@@ -193,9 +193,9 @@ public class VuRed1 extends LinearOpMode
         telemetry.addData("turn", "?");
         telemetry.update();
         stopMotors();
-        robot.lift1.setPower(1);
+       // robot.lift1.setPower(1);
         sleep(500);
-        robot.lift1.setPower(0);
+        //robot.lift1.setPower(0);
         telemetry.addData("lift", "?");
         telemetry.update();
         forwBackw(1);
@@ -207,11 +207,11 @@ public class VuRed1 extends LinearOpMode
         robot.RClaw1.setPosition(robot.BOTTOMRCLAW_OPEN);
         telemetry.addData("open claws", "?");
         telemetry.update();
-        robot.lift1.setPower(-0.5);
+        //robot.lift1.setPower(-0.5);
         telemetry.addData("lift 2", "?");
         telemetry.update();
         sleep(700);
-        robot.lift1.setPower(0);
+        //robot.lift1.setPower(0);
     }
 
     public void autoMain(VuforiaTrackable relicTemplate) {

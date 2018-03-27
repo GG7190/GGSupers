@@ -156,11 +156,11 @@ public class keyAndJewelBlue  extends LinearOpMode {
             robot.LClaw1.setPosition(robot.BOTTOMLCLAW_CLOSE);
             sleep(700);
             //lift slightly so block doesn't hit the ground
-            robot.lift1.setPower(.75);
+            //robot.lift1.setPower(.75);
             sleep(150);
             // stop lift
-            robot.lift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            robot.lift1.setPower(0);
+            //robot.lift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            //robot.lift1.setPower(0);
             sleep(50);
             //drive to safe zone
             robot.forwBakw(-.75);
@@ -179,10 +179,10 @@ public class keyAndJewelBlue  extends LinearOpMode {
             robot.LClaw1.setPosition(robot.BOTTOMLCLAW_CLOSE);
             sleep(700);
             //lift up
-            robot.lift1.setPower(.75);
+            //robot.lift1.setPower(.75);
             sleep(150);
-            robot.lift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            robot.lift1.setPower(0);
+            //robot.lift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            //robot.lift1.setPower(0);
             sleep(50);
             //drive to knock off ball
             robot.forwBakw(1);
@@ -336,11 +336,11 @@ public class keyAndJewelBlue  extends LinearOpMode {
         robot.RClaw1.setPosition(robot.BOTTOMRCLAW_OPEN);
         telemetry.addData("open claws", "?");
         telemetry.update();
-        robot.lift1.setPower(0.5);
+        //robot.lift1.setPower(0.5);
         telemetry.addData("lift 2", "?");
         telemetry.update();
         sleep(700);
-        robot.lift1.setPower(0);
+        //robot.lift1.setPower(0);
         forwBackw(1);
         sleep(40);
         forwBackw(0);

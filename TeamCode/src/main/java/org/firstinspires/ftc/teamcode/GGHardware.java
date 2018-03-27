@@ -64,9 +64,15 @@ public class GGHardware
     public final double SPIN_MIN_RANGE = 0.15;
     public final double SPIN_MID_RANGE = 0.30;
     public final double SPIN_MAX_RANGE = 0.90;
+    public final double FLIPPERL_MIN_RANGE = 1.00;
+    public final double FLIPPERL_MID_RANGE = 0.50;
+    public final double FLIPPERL_MAX_RANGE = 0.00;
+    public final double FLIPPERR_MIN_RANGE = 0.00;
+    public final double FLIPPERR_MID_RANGE = 0.50;
+    public final double FLIPPERR_MAX_RANGE = 1.00;
 
-    public DcMotor frontleft, frontright, backleft, backright ,lift1, relicLift;
-    public Servo pivot, LClaw1, LClaw2, RClaw1, RClaw2, relicClaw, relicUpDown, spin;
+    public DcMotor frontleft, frontright, backleft, backright ,intakel, intaker, relicLift;
+    public Servo pivot, LClaw1, LClaw2, RClaw1, RClaw2, relicClaw, relicUpDown, spin, flipperl, flipperr;
     public float x, y, z, w, pwr;
     public static double deadzone = 0.2;
     public static double deadzone2 = 0.1;
@@ -101,8 +107,12 @@ public class GGHardware
         BaseOpMode.telemetry.addData("bright", 0);
         BaseOpMode.telemetry.update();
 
-        lift1 = hwMap.get(DcMotor.class, "lift1");
-        BaseOpMode.telemetry.addData("lift1t", 0);
+        intakel= hwMap.get(DcMotor.class, "intakel");
+        BaseOpMode.telemetry.addData("intakel", 0);
+        BaseOpMode.telemetry.update();
+
+        intaker= hwMap.get(DcMotor.class, "intaker");
+        BaseOpMode.telemetry.addData("intaker", 0);
         BaseOpMode.telemetry.update();
 
         LClaw1 = hwMap.get(Servo.class, "lclaw1");
@@ -119,6 +129,14 @@ public class GGHardware
 
         RClaw2 = hwMap.get(Servo.class, "rclaw2");
         BaseOpMode.telemetry.addData("rclaw2", 0);
+        BaseOpMode.telemetry.update();
+
+        flipperl = hwMap.get(Servo.class, "flipperl");
+        BaseOpMode.telemetry.addData("flipperl", 0);
+        BaseOpMode.telemetry.update();
+
+        flipperr = hwMap.get(Servo.class, "flipperr");
+        BaseOpMode.telemetry.addData("flipperr", 0);
         BaseOpMode.telemetry.update();
 
         relicClaw = hwMap.get(Servo.class, "relicClaw");

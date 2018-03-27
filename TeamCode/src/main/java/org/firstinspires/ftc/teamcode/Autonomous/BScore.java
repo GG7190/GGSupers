@@ -137,9 +137,29 @@ public class BScore extends LinearOpMode {
             //Wait for the sensor to move down into place.
             sleep(2000);
 
+            // send the info back to driver station using telemetry function.
+            telemetry.addData("Distance (cm)",
+                    String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.CM)));
+            telemetry.addData("Alpha", sensorColor.alpha());
+            telemetry.addData("Red  ", sensorColor.red());
+            telemetry.addData("Green", sensorColor.green());
+            telemetry.addData("Blue ", sensorColor.blue());
+            telemetry.addData("Hue", hsvValues[0]);
+
+            // change the background color to match the color detected by the RGB sensor.
+            // pass a reference to the hue, saturation, and value array as an argument
+            // to the HSVToColor method.
+            relativeLayout.post(new Runnable() {
+                public void run() {
+                    relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
+                }
+            });
+
+            telemetry.update();
+
 
             if (sensorColor.red() < ballCheck()) {
-                robot.spin.setPosition(80);
+                robot.spin.setPosition(.80);
                 sleep(2000);
                 robot.spin.setPosition(.40);
                 robot.pivot.setPosition(robot.PIVOT_MAX_RANGE);
@@ -148,7 +168,7 @@ public class BScore extends LinearOpMode {
             else
             {
                 //sense color and knock off
-                robot.spin.setPosition(robot.SPIN_MID_RANGE);
+                robot.spin.setPosition(0);
                 robot.pivot.setPosition(robot.PIVOT_MAX_RANGE);
             }
 
@@ -157,9 +177,9 @@ public class BScore extends LinearOpMode {
             robot.RClaw1.setPosition(robot.BOTTOMRCLAW_CLOSE);
             robot.LClaw1.setPosition(robot.BOTTOMLCLAW_CLOSE);
             sleep(700);
-            robot.lift1.setPower(.75);
+            //robot.lift1.setPower(.75);
             sleep(250);
-            robot.lift1.setPower(0);
+            //robot.lift1.setPower(0);
 
 
             RelicRecoveryVuMark vuMark = searchVuMark(relicTemplate);
@@ -260,19 +280,19 @@ public class BScore extends LinearOpMode {
         robot.DriveMotorUsingEncoder(1,20,10,2);
         sleep(200);
 
-        robot.DriveMotorUsingEncoder(0.5,14,10,0);
+        robot.DriveMotorUsingEncoder(0.5,14,3,0);
         sleep(200);
 
         robot.RClaw1.setPosition(robot.BOTTOMRCLAW_OPEN);
         robot.LClaw1.setPosition(robot.BOTTOMLCLAW_OPEN);
 
-        robot.DriveMotorUsingEncoder(0.5,1,10, 1);
+        robot.DriveMotorUsingEncoder(0.5,1,3, 1);
         sleep(200);
 
-        robot.DriveMotorUsingEncoder(0.5,3,10,0);
+        robot.DriveMotorUsingEncoder(0.5,3,3,0);
         sleep(200);
 
-        robot.DriveMotorUsingEncoder(0.5,2,10,1);
+        robot.DriveMotorUsingEncoder(0.5,2,3,1);
         stop();
     }
 

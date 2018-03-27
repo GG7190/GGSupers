@@ -139,27 +139,30 @@ public class RScore extends LinearOpMode {
 
 
             if (sensorColor.red() > ballCheck()) {
-                robot.spin.setPosition(80);
+                //robot.spin.setPosition(.80);
+                //robot.pivot.setPosition(robot.PIVOT_MAX_RANGE);
+                robot.spin.setPosition(0.8);
                 sleep(2000);
+                robot.pivot.setPosition(.8);
                 robot.spin.setPosition(.40);
-                robot.pivot.setPosition(robot.PIVOT_MAX_RANGE);
-
             }
             else
             {
                 //sense color and knock off
                 robot.spin.setPosition(robot.SPIN_MID_RANGE);
-                robot.pivot.setPosition(robot.PIVOT_MAX_RANGE);
+                robot.spin.setPosition(0);
+                sleep(2000);
+                robot.pivot.setPosition(0.8);
+                robot.spin.setPosition(0.4);
             }
-
 
 
             robot.RClaw1.setPosition(robot.BOTTOMRCLAW_CLOSE);
             robot.LClaw1.setPosition(robot.BOTTOMLCLAW_CLOSE);
             sleep(700);
-            robot.lift1.setPower(.75);
+            //robot.lift1.setPower(.75);
             sleep(250);
-            robot.lift1.setPower(0);
+            //robot.lift1.setPower(0);
 
 
             RelicRecoveryVuMark vuMark = searchVuMark(relicTemplate);
@@ -249,7 +252,7 @@ public class RScore extends LinearOpMode {
     }
 
     int right = 22;
-    int center = 29;
+    int center = 31;
     int left = 39;
 
     public void red(int distance)
@@ -260,19 +263,19 @@ public class RScore extends LinearOpMode {
         robot.DriveMotorUsingEncoder(1,20,10,2);
         sleep(200);
 
-        robot.DriveMotorUsingEncoder(0.5,12,10,0);
+        robot.DriveMotorUsingEncoder(0.5,12,4,0);
         sleep(200);
 
         robot.RClaw1.setPosition(robot.BOTTOMRCLAW_OPEN);
         robot.LClaw1.setPosition(robot.BOTTOMLCLAW_OPEN);
 
-        robot.DriveMotorUsingEncoder(0.5,1,10, 1);
+        robot.DriveMotorUsingEncoder(0.5,1,3, 1);
         sleep(200);
 
-        robot.DriveMotorUsingEncoder(0.5,3,10,0);
+        robot.DriveMotorUsingEncoder(0.5,3,3,0);
         sleep(200);
 
-        robot.DriveMotorUsingEncoder(0.5,2,10,1);
+        robot.DriveMotorUsingEncoder(0.5,2,3,1);
         stop();
     }
 

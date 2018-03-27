@@ -59,8 +59,8 @@ public class MechDrive extends LinearOpMode
             //closes top claws
             if (gamepad2.left_bumper)
             {
-                robot.RClaw2.setPosition(robot.TOPRCLAW_CLOSE);
-                robot.LClaw2.setPosition(robot.TOPLCLAW_CLOSE);
+                robot.flipperl.setPosition(robot.FLIPPERR_MAX_RANGE);
+                robot.flipperr.setPosition(robot.FLIPPERL_MAX_RANGE);
             }
             //opens bottom claws
             if (gamepad2.right_trigger > 0)
@@ -71,8 +71,8 @@ public class MechDrive extends LinearOpMode
             //opens top claws
             if (gamepad2.right_bumper)
             {
-                robot.RClaw2.setPosition(robot.TOPRCLAW_OPEN);
-                robot.LClaw2.setPosition(robot.TOPLCLAW_OPEN);
+                robot.flipperl.setPosition(0.25);
+                robot.flipperr.setPosition(0.75);
             }
 
             //sets all claws to mid position
@@ -95,19 +95,24 @@ public class MechDrive extends LinearOpMode
             //lift up
             if (gamepad2.y)
             {
-                robot.lift1.setPower(1);
-                robot.lift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                robot.intakel.setPower(1);
+                robot.intaker.setPower(-1);
+
             }
             //lift down
             else if (gamepad2.a)
             {
-                robot.lift1.setPower(-1);
-                robot.lift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                robot.intakel.setPower(-1);
+                robot.intaker.setPower(1);
+                robot.intakel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             }
             //stop lift
             else
             {
-                robot.lift1.setPower(0);
+                robot.intakel.setPower(0);
+                robot.intaker.setPower(0);
+                robot.intakel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+                robot.intaker.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
             }
 
             if(gamepad2.x)
@@ -146,7 +151,7 @@ public class MechDrive extends LinearOpMode
 
             if(gamepad1.b)
             {
-                robot.pivot.setPosition(robot.PIVOT_MIN_RANGE);
+                robot.pivot.setPosition(robot.PIVOT_MAX_RANGE);
                 //robot.spin.setPosition(robot.SPIN_MID_RANGE);
             }
 
